@@ -83,7 +83,9 @@ window.googleSignIn = () => {
 
     signInWithPopup(auth, provider)
         .then((result) => {
-            localStorage.setItem('currentUser', result.user.email);
+            // Fallback check to prevent "null"
+            const displayUser = result.user.email || result.user.displayName || "Google User";
+            localStorage.setItem('currentUser', displayUser);
             window.location.href = 'index.html';
         })
         .catch((error) => {

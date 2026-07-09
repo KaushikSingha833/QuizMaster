@@ -82,7 +82,10 @@ const checkDomainAccess = (userEmail, allowedDomain) => {
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        localStorage.setItem('currentUser', user.email);
+        // Fallback check to prevent "null"
+        const displayUser = user.email || user.displayName || "Google User";
+        localStorage.setItem('currentUser', displayUser);
+        
         if (typeof window.renderNav === "function") window.renderNav();
     } else {
         localStorage.removeItem('currentUser');
