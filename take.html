@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Quiz - QuizMaster</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav id="navbar" class="navbar"></nav>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+            <h2 id="take-quiz-title" style="margin-bottom: 0;"></h2>
+            <div id="timer-display" style="font-size: 18px; font-weight: 700; color: #ef4444; display: none; background: #fee2e2; padding: 8px 16px; border-radius: 8px;"></div>
+        </div>
+        <div id="question-display" class="card"></div>
+        <p id="progress-text" style="margin-top: 15px; font-weight: 600; color: #64748b; margin-bottom: 8px;"></p>
+        <div id="progress-container" style="width: 100%; background-color: #e2e8f0; border-radius: 8px; height: 10px; margin-bottom: 20px; overflow: hidden;">
+            <div id="progress-bar" style="height: 100%; width: 0%; background-color: #2563eb; transition: width 0.4s ease;"></div>
+        </div>
+        <button id="next-btn" class="btn primary-btn" onclick="window.nextQuestion()">Next</button>
+    </div>
+    <script type="module" src="quiz-logic.js"></script>
+</body>
+</html>

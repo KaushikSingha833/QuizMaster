@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Professional Quiz Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar"></nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1>Elevate Your Learning with QuizMaster</h1>
+            <p>Design engaging assessments, enforce domain-level security, and track real-time analytics. Built for organizations, educators, and curious minds.</p>
+            <div class="hero-buttons">
+                <button class="btn primary-btn" onclick="window.location.href='create.html'">Create a Quiz</button>
+                <button class="btn secondary-btn" onclick="window.location.href='list.html'">Take a Quiz</button>
+                <button class="btn outline-btn" onclick="window.location.href='dashboard.html'">View Responses</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="features-section">
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Domain Security</h3>
+            <p>Restrict quiz access to specific organization emails and prevent unauthorized attempts instantly.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔀</div>
+            <h3>Dynamic Shuffling</h3>
+            <p>Automatically randomize question order and multiple-choice options for every single user.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Real-time Analytics</h3>
+            <p>Monitor participant scores, pass rates, and review detailed performance metrics on the fly.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⏱️</div>
+            <h3>Strict Time Limits</h3>
+            <p>Set custom countdown timers for your assessments to simulate real exam environments.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🛑</div>
+            <h3>Attempt Control</h3>
+            <p>Choose between allowing multiple practice runs or restricting users to a single strict attempt.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Instant Feedback</h3>
+            <p>Provide immediate, automated grading and correct-answer reviews upon submission.</p>
+        </div>
+    </section>
+
+    <div class="container" style="margin-bottom: 80px;">
+        <h2 style="text-align: center;">How It Works</h2>
+        <div class="list-container">
+            <div class="quiz-item" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                <h3 style="font-size: 20px; font-weight: 800;">1. Create & Customize</h3>
+                <p style="color: #475569; font-weight: 600;">Build your quiz, add questions, set time limits, and define your allowed email domains.</p>
+            </div>
+            <div class="quiz-item" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                <h3 style="font-size: 20px; font-weight: 800;">2. Share Securely</h3>
+                <p style="color: #475569; font-weight: 600;">Send the unique shareable link to your students or team. Only verified users can enter.</p>
+            </div>
+            <div class="quiz-item" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                <h3 style="font-size: 20px; font-weight: 800;">3. Analyze Results</h3>
+                <p style="color: #475569; font-weight: 600;">Check your Creator Dashboard to see real-time scores, individual responses, and analytics.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 40px 20px; border-top: 3px solid #0f172a; background: #ffffff; font-weight: 700; color: #0f172a;">
+        <p>&copy; 2026 QuizMaster</p>
+    </footer>
+
+    <script type="module" src="quiz-logic.js"></script>
+</body>
+</html>

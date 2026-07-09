@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quiz - QuizMaster</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav id="navbar" class="navbar"></nav>
+    <div class="container">
+        <a href="index.html" class="back-nav">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>Back to Home</span>
+        </a>
+        <h2>Quiz Creation</h2>
+        <input type="text" id="quiz-title" placeholder="Enter Quiz Title" class="auth-input">
+        <input type="text" id="allowed-domain" placeholder="Allowed Domain (e.g., @cgu-odisha.ac.in)" class="auth-input">
+        <input type="number" id="time-limit" placeholder="Time Limit in minutes (Leave blank for no limit)" class="auth-input">
+        
+        <label for="allow-reattempt" style="display:block; margin-bottom: 5px; color: #4a5568; font-weight: 500; font-size: 14px;">Attempt Limit:</label>
+        <select id="allow-reattempt" class="auth-input" style="margin-bottom: 20px;">
+            <option value="true">Allow Multiple Attempts</option>
+            <option value="false">Limit to 1 Attempt per User</option>
+        </select>
+
+        <label for="expiry-date" style="display:block; margin-bottom: 5px; color: #4a5568; font-weight: 500; font-size: 14px;">Quiz Deadline (Optional):</label>
+        <input type="datetime-local" id="expiry-date" class="auth-input" style="margin-bottom: 20px;">
+        
+        <div id="questions-container"></div>
+        <div class="btn-group">
+            <button class="btn secondary-btn" onclick="window.addQuestionField()">+ Add Question</button>
+            <button class="btn primary-btn" onclick="window.saveQuiz()">Save Quiz</button>
+        </div>
+    </div>
+    <script type="module" src="quiz-logic.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Authentication</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">QuizMaster</div>
+    </nav>
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <h2>Welcome Back</h2>
+            <p>Log in or register to continue.</p>
+            <input type="email" id="email" class="auth-input" placeholder="Email Address">
+            <input type="password" id="password" class="auth-input" placeholder="Password">
+            <p id="auth-error" class="error-msg"></p>
+            
+            <div class="forgot-password">
+                <span onclick="window.resetPassword()">Forgot Password?</span>
+            </div>
+
+            <div class="auth-buttons">
+                <button class="btn primary-btn" onclick="window.login()">Log In</button>
+                <button class="btn secondary-btn" onclick="window.register()">Register</button>
+                <button class="btn outline-btn" style="display:flex; align-items:center; justify-content:center; gap:10px; margin-top:5px;" onclick="window.googleSignIn()">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:18px;">
+                    Continue with Google
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="auth-logic.js"></script>
+</body>
+</html>
