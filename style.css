@@ -399,3 +399,55 @@ body {
         padding: 24px;
     }
 }
+/* Custom Modals (Alerts, Prompts, Confirms) */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.custom-modal {
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 16px;
+    border: 3px solid #0f172a;
+    box-shadow: 8px 8px 0px #0f172a;
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+    animation: modalPop 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes modalPop {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.custom-modal h3 {
+    margin-bottom: 12px;
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.custom-modal p {
+    margin-bottom: 24px;
+    color: #475569;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.custom-modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
