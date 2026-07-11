@@ -82,7 +82,6 @@ const checkDomainAccess = (userEmail, allowedDomain) => {
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        // Fallback check to prevent "null"
         const displayUser = user.email || user.displayName || "Google User";
         localStorage.setItem('currentUser', displayUser);
         
@@ -115,12 +114,14 @@ window.renderNav = () => {
     if (nav) {
         const logoHtml = `<div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">QuizMaster</div>`;
         const hamburgerHtml = `<button class="hamburger-btn" onclick="window.toggleMenu()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>`;
+        const themeBtnHtml = `<button onclick="window.toggleTheme()" class="nav-btn outline-btn" style="padding: 8px 12px; margin-right: 10px;">🌓</button>`;
         
         if (currentUser) {
             nav.innerHTML = `
                 ${logoHtml}
                 ${hamburgerHtml}
                 <div class="nav-links" id="nav-links-menu">
+                    ${themeBtnHtml}
                     <span id="welcome-msg" class="user-email" title="${currentUser}">${currentUser}</span>
                     <button onclick="window.logout()" class="logout-btn">Logout</button>
                 </div>
@@ -130,6 +131,7 @@ window.renderNav = () => {
                 ${logoHtml}
                 ${hamburgerHtml}
                 <div class="nav-links" id="nav-links-menu">
+                    ${themeBtnHtml}
                     <button class="nav-btn login-btn" onclick="window.location.href='auth.html'">Log In</button>
                     <button class="nav-btn register-btn" onclick="window.location.href='auth.html'">Register</button>
                 </div>
@@ -362,13 +364,25 @@ window.initTakeQuiz = async () => {
 };
 
 window.startTimer = (minutes) => {
-    let timeRemaining = minutes * 60;
     const display = document.getElementById('timer-display');
     display.style.display = 'block';
+    
+    const storageKey = `quizTimer_${activeQuizId}`;
+    let endTime = localStorage.getItem(storageKey);
+
+    if (!endTime) {
+        endTime = Date.now() + (minutes * 60 * 1000);
+        localStorage.setItem(storageKey, endTime);
+    }
 
     quizTimerInterval = setInterval(() => {
+        const now = Date.now();
+        const timeRemaining = Math.max(0, Math.floor((endTime - now) / 1000));
+
         if (timeRemaining <= 0) {
             clearInterval(quizTimerInterval);
+            localStorage.removeItem(storageKey);
+            
             window.customAlert("Time is up! Your quiz will now be submitted automatically.", () => {
                 window.submitQuizAction();
             });
@@ -376,7 +390,6 @@ window.startTimer = (minutes) => {
             const mins = Math.floor(timeRemaining / 60);
             const secs = timeRemaining % 60;
             display.innerText = `Time Left: ${mins}:${secs < 10 ? '0' : ''}${secs}`;
-            timeRemaining--;
         }
     }, 1000);
 };
@@ -434,6 +447,8 @@ window.nextQuestion = () => {
 };
 
 window.submitQuizAction = async () => {
+    localStorage.removeItem(`quizTimer_${activeQuizId}`);
+    
     let score = 0;
     let detailedAnswers = [];
 
@@ -662,6 +677,47 @@ window.deleteQuizAction = () => {
     });
 };
 
+window.toggleTheme = () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+};
+
+window.injectStrictThemeCSS = () => {
+    if (document.getElementById('strict-dark-mode-override')) return;
+    const style = document.createElement('style');
+    style.id = 'strict-dark-mode-override';
+    style.innerHTML = `
+        [data-theme="dark"] body { background-color: #0f172a !important; color: #f8fafc !important; background-image: radial-gradient(#334155 1px, transparent 1px) !important; }
+        [data-theme="dark"] .navbar { background-color: #1e293b !important; border-bottom-color: #020617 !important; }
+        [data-theme="dark"] .nav-links { background-color: #1e293b !important; }
+        [data-theme="dark"] .logo { color: #f8fafc !important; }
+        [data-theme="dark"] .hamburger-btn { background: #bef264 !important; color: #0f172a !important; border-color: #020617 !important; box-shadow: 2px 2px 0px #020617 !important; }
+        [data-theme="dark"] .user-email { background: #334155 !important; border-color: #020617 !important; color: #f8fafc !important; }
+        [data-theme="dark"] .auth-box, [data-theme="dark"] .container, [data-theme="dark"] .card, [data-theme="dark"] .q-block, [data-theme="dark"] .feature-card, [data-theme="dark"] .quiz-item, [data-theme="dark"] .review-item, [data-theme="dark"] .custom-modal { background-color: #1e293b !important; border-color: #020617 !important; box-shadow: 8px 8px 0px #020617 !important; }
+        [data-theme="dark"] .auth-box h2, [data-theme="dark"] .container h2, [data-theme="dark"] .card h3, [data-theme="dark"] .feature-card h3, [data-theme="dark"] .hero-content h1, [data-theme="dark"] .custom-modal h3 { color: #f8fafc !important; }
+        [data-theme="dark"] .auth-box p, [data-theme="dark"] .hero-content p, [data-theme="dark"] .feature-card p, [data-theme="dark"] .custom-modal p, [data-theme="dark"] .review-item p, [data-theme="dark"] .quiz-item span { color: #cbd5e1 !important; }
+        [data-theme="dark"] .auth-input, [data-theme="dark"] .full-width, [data-theme="dark"] .q-text, [data-theme="dark"] .opt-text { background-color: #0f172a !important; border-color: #020617 !important; color: #f8fafc !important; }
+        [data-theme="dark"] .auth-input:focus, [data-theme="dark"] .full-width:focus, [data-theme="dark"] .q-text:focus, [data-theme="dark"] .opt-text:focus { background-color: #1e293b !important; border-color: #ec4899 !important; box-shadow: 4px 4px 0px #ec4899 !important; }
+        [data-theme="dark"] .btn, [data-theme="dark"] .nav-btn, [data-theme="dark"] .logout-btn { border-color: #020617 !important; box-shadow: 4px 4px 0px #020617 !important; color: #0f172a !important; }
+        [data-theme="dark"] .btn:active, [data-theme="dark"] .nav-btn:active, [data-theme="dark"] .logout-btn:active { box-shadow: 0px 0px 0px #020617 !important; }
+        [data-theme="dark"] .outline-btn, [data-theme="dark"] .login-btn { background-color: #334155 !important; color: #f8fafc !important; }
+        [data-theme="dark"] .back-nav { background: #334155 !important; border-color: #020617 !important; color: #f8fafc !important; box-shadow: 3px 3px 0px #020617 !important; }
+        [data-theme="dark"] .take-option { background: #0f172a !important; border-color: #020617 !important; color: #f8fafc !important; }
+        [data-theme="dark"] .take-option:hover { background-color: #334155 !important; box-shadow: 4px 4px 0px #020617 !important; }
+        [data-theme="dark"] .take-option.selected { background-color: #bef264 !important; color: #0f172a !important; box-shadow: 4px 4px 0px #020617 !important; }
+        [data-theme="dark"] .forgot-password span { color: #93c5fd !important; }
+        [data-theme="dark"] select option { background-color: #1e293b !important; color: #f8fafc !important; }
+        [data-theme="dark"] details summary { color: #93c5fd !important; }
+    `;
+    document.head.appendChild(style);
+};
+
+window.injectStrictThemeCSS();
+const savedTheme = localStorage.getItem("theme") || "light";
+document.documentElement.setAttribute("data-theme", savedTheme);
+
 document.addEventListener("DOMContentLoaded", () => {
     const path = window.location.pathname;
 
@@ -681,4 +737,3 @@ document.addEventListener("DOMContentLoaded", () => {
         window.renderNav();
     }
 });
-

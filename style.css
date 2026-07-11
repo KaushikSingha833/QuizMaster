@@ -1,5 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
 
+
+:root {
+    --bg-color: #fdfbf7;
+    --text-color: #0f172a;
+    --nav-bg: #ffffff;
+    --card-bg: #ffffff;
+    --border-color: #0f172a;
+    --shadow-color: #0f172a;
+    --btn-outline: #ffffff;
+    --input-bg: #f8fafc;
+}
+
+[data-theme="dark"] {
+    --bg-color: #0f172a;
+    --text-color: #f8fafc;
+    --nav-bg: #1e293b;
+    --card-bg: #1e293b;
+    --border-color: #94a3b8;
+    --shadow-color: #94a3b8;
+    --btn-outline: #334155;
+    --input-bg: #334155;
+}
+
+body { background-color: var(--bg-color); color: var(--text-color); }
+.navbar { background-color: var(--nav-bg); border-color: var(--border-color); }
+.logo, .user-email { color: var(--text-color); }
+.user-email { background: var(--input-bg); border-color: var(--border-color); }
+.outline-btn, .login-btn { background-color: var(--btn-outline); }
+.auth-box, .container, .card, .q-block, .feature-card, .quiz-item, .review-item { background: var(--card-bg); border-color: var(--border-color); box-shadow: 8px 8px 0px var(--shadow-color); }
+.auth-box h2, .container h2, .card h3, .feature-card h3, .hero-content h1 { color: var(--text-color); }
+.auth-box p, .hero-content p, .feature-card p, .custom-modal p { color: var(--text-color); }
+.auth-input, .full-width, .q-text, .opt-text { border-color: var(--border-color); background-color: var(--input-bg); color: var(--text-color); }
+.back-nav { color: var(--text-color); border-color: var(--border-color); background: var(--input-bg); box-shadow: 3px 3px 0px var(--shadow-color); }
+.take-option { background: var(--input-bg); border-color: var(--border-color); color: var(--text-color); }
+.custom-modal { background: var(--card-bg); border-color: var(--border-color); box-shadow: 8px 8px 0px var(--shadow-color); }
+.custom-modal h3 { color: var(--text-color); }
 /* Base Reset & Typography */
 * {
     margin: 0;
